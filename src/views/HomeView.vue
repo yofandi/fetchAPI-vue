@@ -1,7 +1,13 @@
 <script setup>
 import ProductCard from "@/components/ProductCard.vue";
 import Pagination from "@/components/Pagination.vue";
-import { onBeforeMount, onMounted } from "vue";
+import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from "vue";
+
+const page = ref(1);
+
+function nextPage() {
+  page.value++;
+}
 
 onBeforeMount(() => {
   console.log("hai ini onBeforeMounted");
@@ -10,10 +16,20 @@ onBeforeMount(() => {
 onMounted(() => {
   console.log("hai ini onMounted");
 });
+
+onBeforeUpdate(() => {
+  console.log("Component akan segera tampil");
+});
+
+onUpdated(() => {
+  console.log("Component sudah diperbaharui");
+});
 </script>
 
 <template>
   <main>
+    {{ page }}
+    <button @click="nextPage">Next</button>
     <div class="product-grid">
       <ProductCard></ProductCard>
     </div>
