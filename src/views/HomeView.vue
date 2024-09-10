@@ -1,7 +1,14 @@
 <script setup>
 import ProductCard from "@/components/ProductCard.vue";
 import Pagination from "@/components/Pagination.vue";
-import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from "vue";
+import {
+  onBeforeMount,
+  onBeforeUnmount,
+  onBeforeUpdate,
+  onMounted,
+  onUpdated,
+  ref,
+} from "vue";
 
 const page = ref(1);
 
@@ -11,18 +18,32 @@ function nextPage() {
 
 onBeforeMount(() => {
   console.log("hai ini onBeforeMounted");
+  // lakukan persiapan atau sefek samping sebelum mounting
 });
 
 onMounted(() => {
   console.log("hai ini onMounted");
+  //lakukan tugas setelah mounting, seperti fetching data
 });
 
 onBeforeUpdate(() => {
   console.log("Component akan segera tampil");
+  // lakukan persiapa atau efek samping sebelum pembaruan
 });
 
 onUpdated(() => {
   console.log("Component sudah diperbaharui");
+  // lakukan tugas setelah pembaruan, jika diperlukan
+});
+
+onBeforeUnmount(() => {
+  console.log("component will be unmounted soon");
+  // lalukan pembersihan atau persiapan sebelum unmounting
+});
+
+onMounted(() => {
+  console.log("component has been unmounted");
+  // lakukan tugas terakhir sebelum dihapus
 });
 </script>
 
