@@ -1,60 +1,15 @@
-<script setup></script>
+<script setup>
+const { product } = defineProps({
+  product: Object,
+});
+</script>
 
 <template>
   <div class="product-card">
-    <img src="" alt="Product 1" class="product-image" />
-    <h2 class="product-title">Product 1</h2>
-    <p class="product-description">Short description for Product 1.</p>
-    <span class="product-price">Rp 100.000</span>
-  </div>
-  <!-- Product 2 -->
-  <div class="product-card">
-    <img src="" alt="Product 2" class="product-image" />
-    <h2 class="product-title">Product 2</h2>
-    <p class="product-description">Short description for Product 2.</p>
-    <span class="product-price">Rp 150.000</span>
-  </div>
-
-  <div class="product-card">
-    <img src="" alt="Product 2" class="product-image" />
-    <h2 class="product-title">Product 2</h2>
-    <p class="product-description">Short description for Product 2.</p>
-    <span class="product-price">Rp 150.000</span>
-  </div>
-
-  <div class="product-card">
-    <img src="" alt="Product 2" class="product-image" />
-    <h2 class="product-title">Product 2</h2>
-    <p class="product-description">Short description for Product 2.</p>
-    <span class="product-price">Rp 150.000</span>
-  </div>
-
-  <div class="product-card">
-    <img src="" alt="Product 2" class="product-image" />
-    <h2 class="product-title">Product 2</h2>
-    <p class="product-description">Short description for Product 2.</p>
-    <span class="product-price">Rp 150.000</span>
-  </div>
-
-  <div class="product-card">
-    <img src="" alt="Product 2" class="product-image" />
-    <h2 class="product-title">Product 2</h2>
-    <p class="product-description">Short description for Product 2.</p>
-    <span class="product-price">Rp 150.000</span>
-  </div>
-
-  <div class="product-card">
-    <img src="" alt="Product 2" class="product-image" />
-    <h2 class="product-title">Product 2</h2>
-    <p class="product-description">Short description for Product 2.</p>
-    <span class="product-price">Rp 150.000</span>
-  </div>
-
-  <div class="product-card">
-    <img src="" alt="Product 2" class="product-image" />
-    <h2 class="product-title">Product 2</h2>
-    <p class="product-description">Short description for Product 2.</p>
-    <span class="product-price">Rp 150.000</span>
+    <img :src="product.image" :alt="product.title" class="product-image" />
+    <h2 class="product-title">{{ product.title }}</h2>
+    <p class="product-description">{{ product.description }}</p>
+    <span class="product-price">{{ product.price }}</span>
   </div>
 </template>
 

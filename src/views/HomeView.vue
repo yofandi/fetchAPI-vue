@@ -11,6 +11,7 @@ products.value = await axios
   .get("http://localhost:3000/products")
   .then((res) => res.data);
 console.log(products.value);
+
 // async function getProducts() {
 //   const response = await axios.get("http://localhost:3000/products");
 //   products.value = response.data;
@@ -24,7 +25,11 @@ console.log(products.value);
   <main>
     {{ products }}
     <div class="product-grid">
-      <ProductCard></ProductCard>
+      <ProductCard
+        v-for="(product, index) in products"
+        :key="index"
+        :product="product"
+      ></ProductCard>
     </div>
     <div class="pagination">
       <Pagination></Pagination>
