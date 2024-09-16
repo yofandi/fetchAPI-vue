@@ -1,22 +1,43 @@
 <script setup>
 import ProductCard from "@/components/ProductCard.vue";
 import Pagination from "@/components/Pagination.vue";
+import Loading from "@/components/Loading.vue";
 
 import { onMounted, ref, watch } from "vue";
 import axios from "axios";
 
+// Loading state
+const isLoading = ref(true);
 const products = ref([]);
 const page = ref(1);
 const limit = ref(8);
 const API_URL = `http://localhost:3000/products?_page=${page.value}&_per_page=${limit.value}`;
 
 onMounted(async () => {
-  products.value = await axios.get(API_URL).then((res) => res.data);
-  console.log(products.value);
+  try {
+    products.value = await axios.get(API_URL).then((res) => res.data);
+    console.log(products.value);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setTimeout(() => {
+      isLoading.value = false; // Stop loading after 2 seconds
+    }, 500);
+  }
 });
 
 watch(page, async () => {
-  products.value = await axios.get(API_URL).then((res) => res.data);
+  try {
+    isLoading.value = true;
+    products.value = await axios.get(API_URL).then((res) => res.data);
+    console.log(products.value);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setTimeout(() => {
+      isLoading.value = false; // Stop loading after 2 seconds
+    }, 500);
+  }
 });
 
 function changePage(newPage) {
@@ -34,7 +55,11 @@ function changePage(newPage) {
 </script>
 
 <template>
-  <main>
+  <!-- Loading Screen -->
+  <div v-if="isLoading" class="loading-screen">
+    <Loading></Loading>
+  </div>
+  <main v-else>
     <div class="product-grid">
       <ProductCard
         v-for="(product, index) in products.data"
@@ -53,6 +78,15 @@ function changePage(newPage) {
 </template>
 
 <style scoped>
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  background-color: #f5f5f5;
+}
+
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
