@@ -1,22 +1,32 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import axios from "axios";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
+const router = useRouter();
 
 const id = route.params.id;
 const product = ref({});
+const API_URL = `http://localhost:3000/products/${id}`;
 
 onMounted(() => {
   fetchData();
 });
 
 async function fetchData() {
-  const API_URL = `http://localhost:3000/products/${id}`;
   try {
     const response = await axios.get(API_URL);
     product.value = response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function deleteProduct() {
+  try {
+    await axios.delete(API_URL);
+    router.push("/");
   } catch (error) {
     console.log(error);
   }
@@ -28,8 +38,9 @@ async function fetchData() {
     <h2>{{ product.title }}</h2>
     <img :src="product.image" alt="product.title" class="product-image" />
     <p>{{ product.description }}</p>
-    <p>{{ product.price }}</p>
-    <router-link to="" class="back-button">Back</router-link>
+    <p>$. {{ product.price }}</p>
+    <router-link to="/" class="back-button">Back</router-link>
+    <button class="delete-button" @click="deleteProduct">Delete</button>
   </div>
 </template>
 
