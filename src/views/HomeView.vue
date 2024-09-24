@@ -53,6 +53,13 @@ async function fetchData() {
 //     }, 500);
 //   }
 // });
+// async function getProducts() {
+//   const response = await axios.get("http://localhost:3000/products");
+//   products.value = response.data;
+//   console.log(response.data);
+// }
+
+// getProducts();
 watchEffect(() => {
   fetchData();
 });
@@ -62,13 +69,15 @@ function changePage(newPage) {
   if (newPage > products.value.pages) return;
   page.value = newPage;
 }
-// async function getProducts() {
-//   const response = await axios.get("http://localhost:3000/products");
-//   products.value = response.data;
-//   console.log(response.data);
-// }
 
-// getProducts();
+async function createProduct(product) {
+  try {
+    await axios.post("http://localhost:3000/products", product);
+    fetchData();
+  } catch (error) {
+    console.log(error);
+  }
+}
 </script>
 
 <template>
@@ -77,7 +86,7 @@ function changePage(newPage) {
     <Loading></Loading>
   </div>
   <main v-else>
-    <ProductForm></ProductForm>
+    <ProductForm @create-product="createProduct"></ProductForm>
     <div class="product-grid">
       <ProductCard
         v-for="(product, index) in products.data"

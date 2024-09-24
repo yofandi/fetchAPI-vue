@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, defineEmits } from "vue";
 
 const title = ref("");
 const description = ref("");
@@ -8,13 +8,24 @@ const image = ref("");
 const id = ref("");
 
 const showForm = ref(false);
+const emit = defineEmits(["create-product"]);
+
+function saveProduct() {
+  const formData = {
+    title: title.value,
+    description: description.value,
+    price: price.value,
+    image: image.value,
+  };
+  emit("create-product", formData);
+}
 </script>
 
 <template>
   <div class="form-container">
     <button @click="showForm = !showForm">Form Product</button>
     <div v-if="showForm" class="product-form">
-      <form @submit.prevent="">
+      <form @submit.prevent="saveProduct">
         <label for="title">Title:</label>
         <input type="text" id="title" v-model="title" required />
         <label for="description">Description:</label>

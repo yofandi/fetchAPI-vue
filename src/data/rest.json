@@ -370,6 +370,13 @@
       "description": "Nisi alias nulla exp",
       "price": 512,
       "image": "Iste modi omnis omni"
+    },
+    {
+      "id": "8c6c",
+      "title": "apple vision",
+      "description": "apple inovation",
+      "price": 999,
+      "image": "\"https://img.freepik.com/free-vector/copyright-symbol-flat-style_23-2147865302.jpg?t=st=1727189498~exp=1727190098~hmac=0bacbc068daf89aecba260f80fa0b6946747a6179f72371620e1b01f9245a802"
     }
   ]
 }
