@@ -1,5 +1,9 @@
 <script setup>
-import { ref, defineEmits } from "vue";
+import { ref, defineEmits, defineProps, watchEffect, computed } from "vue";
+
+const props = defineProps({
+  product: Object,
+});
 
 const title = ref("");
 const description = ref("");
@@ -7,8 +11,19 @@ const price = ref("");
 const image = ref("");
 const id = ref("");
 
+// fungsi tanda tanya dibawah ini berfungsi sebagai opsional. form ini tidak melulu memiliki props sehingga fungsi ? sebagai cara untuk menghindari error semisal form tidak memiliki props
+watchEffect(() => {
+  title.value = props.product?.title;
+  description.value = props.product?.description;
+  price.value = props.product?.price;
+  image.value = props.product?.image;
+  id.value = props.product?.id;
+});
+
 const showForm = ref(false);
-const emit = defineEmits(["create-product"]);
+const isUpdate = computed(() => !!id.value || !!props.product);
+
+const emit = defineEmits(["create-product", "update-product"]);
 
 function saveProduct() {
   const formData = {
@@ -17,6 +32,9 @@ function saveProduct() {
     price: price.value,
     image: image.value,
   };
+  if (isUpdate.value) {
+    emit("update-product", formData);
+  }
   emit("create-product", formData);
 }
 </script>

@@ -32,6 +32,15 @@ async function deleteProduct() {
     console.log(error);
   }
 }
+
+async function updateProduct(product) {
+  try {
+    await axios.put(API_URL, product);
+    router.push("/");
+  } catch (error) {
+    console.log(error);
+  }
+}
 </script>
 
 <template>
@@ -40,7 +49,10 @@ async function deleteProduct() {
     <img :src="product.image" alt="product.title" class="product-image" />
     <p>{{ product.description }}</p>
     <p>$. {{ product.price }}</p>
-    <ProductForm></ProductForm>
+    <ProductForm
+      :product="product"
+      @update-product="updateProduct"
+    ></ProductForm>
     <router-link to="/" class="back-button">Back</router-link>
     <button class="delete-button" @click="deleteProduct">Delete</button>
   </div>
